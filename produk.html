@@ -136,6 +136,43 @@
         </div>
     </footer>
 
+    <script src="js/jquery-3.6.3.min.js"></script>
+<script>
+    var api = "https://rikikurnia.com/prakerja/api/produk/"
+
+    floatingSelect.onchange = function () {
+        var dipilih = this.value
+        var api_server = api + dipilih
+
+        var template = ""
+
+        $.get(api_server).then(function (respon) {
+            var data_kopi = respon.data
+
+            data_kopi.forEach(item => {
+                template += `<div class="col mb-4">
+                        <div class="card">
+                            <img src="${item.foto}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">${item.nama}</h5>
+                                <div class="row my-4">
+                                    <div class="col">
+                                        ${item.size}
+                                    </div>
+                                    <div class="col">
+                                        ${item.harga}
+                                    </div>
+                                </div>
+                                <a href="${item.link}" class="btn btn-success w-100"><i class="bi bi-cart4"></i> Beli</a>
+                            </div>
+                        </div>
+                    </div>`
+            });
+            document.querySelector(".produk .row").innerHTML = template
+        })
+    }
+</script>
+
 </body>
 
 </html>
